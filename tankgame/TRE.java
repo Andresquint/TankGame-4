@@ -94,7 +94,7 @@ public class TRE extends JPanel  {
         Graphics2D g2 = (Graphics2D) g;
         buffer = world.createGraphics();
         super.paintComponent(g2);
-
+        buffer.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.t1.drawImage(buffer);
         g2.drawImage(world,0,0,null);
 

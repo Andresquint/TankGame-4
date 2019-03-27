@@ -16,7 +16,7 @@ import java.awt.event.KeyListener;
  */
 public class TankControl implements KeyListener {
 
-    private tankgame.Tank t1;
+    private Tank t1;
     private final int up;
     private final int down;
     private final int right;
@@ -52,6 +52,9 @@ public class TankControl implements KeyListener {
         if (keyPressed == right) {
             this.t1.toggleRightPressed();
         }
+        if (keyPressed == shoot) {
+            this.t1.toggleShootPressed();
+        }
         
 
     }
@@ -70,6 +73,9 @@ public class TankControl implements KeyListener {
         }
         if (keyReleased  == right) {
             this.t1.unToggleRightPressed();
+        }
+        if (keyReleased == shoot){
+            this.t1.unToggleShootPressed();
         }
 
     }

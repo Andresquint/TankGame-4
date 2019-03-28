@@ -29,6 +29,7 @@ public class TRE extends JPanel  {
     private Graphics2D buffer;
     private JFrame jf;
     private Tank t1;
+    private Tank t2;
 
 
     public static void main(String[] args) {
@@ -39,8 +40,10 @@ public class TRE extends JPanel  {
 
             while (true) {
                 trex.t1.update();
+                trex.t2.update();
                 trex.repaint();
                 System.out.println(trex.t1);
+                System.out.println("tank 2 here: " + trex.t2);
                 Thread.sleep(1000 / 144);
             }
         } catch (InterruptedException ignored) {
@@ -62,21 +65,25 @@ public class TRE extends JPanel  {
              * current working directory.
              */
             t1img = read(new File("tank1.png"));
+            t2img = read(new File("tank1.png"));
 
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         t1 = new Tank(200, 200, 0, 0, 0, t1img);
+        t2 = new Tank(100, 100, 0, 0, 0, t2img);
 
 
-        TankControl tc1 = new TankControl(t1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ENTER);
+        TankControl tc1 = new TankControl(t1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+        TankControl tc2 = new TankControl(t2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
 
         this.jf.setLayout(new BorderLayout());
         this.jf.add(this);
 
 
         this.jf.addKeyListener(tc1);
+        this.jf.addKeyListener(tc2);
 
 
         this.jf.setSize(TRE.SCREEN_WIDTH, TRE.SCREEN_HEIGHT + 30);
@@ -96,6 +103,7 @@ public class TRE extends JPanel  {
         super.paintComponent(g2);
         buffer.clearRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.t1.drawImage(buffer);
+        this.t2.drawImage(buffer);
         g2.drawImage(world,0,0,null);
 
     }

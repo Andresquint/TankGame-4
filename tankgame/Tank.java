@@ -5,6 +5,11 @@ package tankgame;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static javax.imageio.ImageIO.read;
+import java.io.File;
 
 /**
  *
@@ -25,11 +30,14 @@ public class Tank{
 
 
     private BufferedImage img;
+    private BufferedImage bulletImg;
     private boolean UpPressed;
     private boolean DownPressed;
     private boolean RightPressed;
     private boolean LeftPressed;
     private boolean ShootPressed;
+
+    private ArrayList<Bullet> bulletList;
 
 
     Tank(int x, int y, int vx, int vy, int angle, BufferedImage img) {
@@ -39,6 +47,12 @@ public class Tank{
         this.vy = vy;
         this.img = img;
         this.angle = angle;
+        this.bulletList = new ArrayList<Bullet>();
+        try{
+            bulletImg = read(new File("tank1.png"));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 
     }
 
@@ -95,9 +109,17 @@ public class Tank{
         if (this.RightPressed) {
             this.rotateRight();
         }
+        if(this.ShootPressed) {
+            this.shoot();
+        }
+        for (Bullet b : this.bulletList){
+                b.update();
+            }
+
+        }
 
 
-    }
+
 
     private void rotateLeft() {
         this.angle -= this.ROTATIONSPEED;
@@ -124,6 +146,9 @@ public class Tank{
     }
 
     private void shoot(){
+        Bullet pBullet = new Bullet(x, y, angle, bulletImg);
+        this.bulletList.add(pBullet);
+        System.out.println("Fire!");
 
     }
 

@@ -41,13 +41,13 @@ public class Bullet {
         if (x < 30) {
             this.exists = false;
         }
-        if (x >= 1600 - 88) {
+        if (x >= 2560 - 88) {
             this.exists = false;
         }
         if (y < 40) {
             this.exists = false;
         }
-        if (y >= 1200 - 80) {
+        if (y >= 2560 - 80) {
             this.exists = false;
         }
     }

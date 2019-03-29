@@ -130,28 +130,29 @@ public class TRE extends JPanel  {
                 t2.bulletList.remove(i);
             }
         }
-        int camt1X = t1.getX() - 200;
-        int camt1Y = t1.getY() - 600;
-        int camt2X = t2.getX() - 200;
-        int camt2Y = t2.getY() - 600;
-        if (camt1X > offsetMaxX){
-            camt1X = 1200;
-        }else if (camt1X < offsetMinX){
+        int camt1X = t1.getX() - SCREEN_WIDTH/4;
+        int camt1Y = t1.getY() - SCREEN_HEIGHT/2;
+        int camt2X = t2.getX() - SCREEN_WIDTH/4;
+        int camt2Y = t2.getY() - SCREEN_HEIGHT/2;
+        if (camt1X > world.getWidth() - SCREEN_WIDTH/2){
+            camt1X = world.getWidth() - SCREEN_WIDTH/2;
+        }else if (camt1X < 0){
             camt1X = 0;
         }
-        if (camt1Y > offsetMaxY ){
-            camt1Y = 600;
-        }else if(camt1Y < offsetMinY){
+        if (camt1Y > world.getHeight() - SCREEN_HEIGHT ){
+            camt1Y = world.getHeight() - SCREEN_HEIGHT;
+        }else if(camt1Y < 0){
             camt1Y = 0;
         }
-        if (camt2X > offsetMaxX){
-            camt2X = 1200;
-        }else if (camt2X < offsetMinX){
+
+        if (camt2X > world.getWidth() - SCREEN_WIDTH/2){
+            camt2X = world.getWidth() - SCREEN_WIDTH/2;
+        }else if (camt2X < 0){
             camt2X = 0;
         }
-        if (camt2Y > offsetMaxY){
-            camt2Y = 600;
-        }else if(camt2Y < offsetMinY){
+        if (camt2Y > world.getHeight() - SCREEN_HEIGHT ){
+            camt2Y = world.getHeight() - SCREEN_HEIGHT;
+        }else if(camt2Y < 0){
             camt2Y = 0;
         }
         //g2.drawImage(world, 0, 0, null);

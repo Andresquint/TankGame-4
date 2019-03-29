@@ -11,6 +11,7 @@ public class Bullet {
     private int vx;
     private int vy;
     private int angle;
+    public boolean exists = true;
 
     private final int R = 4;
     private BufferedImage img;
@@ -38,16 +39,16 @@ public class Bullet {
 
     private void checkBorder() {
         if (x < 30) {
-            x = 30;
+            this.exists = false;
         }
-        if (x >= TRE.SCREEN_WIDTH - 88) {
-            x = TRE.SCREEN_WIDTH - 88;
+        if (x >= 1600 - 88) {
+            this.exists = false;
         }
         if (y < 40) {
-            y = 40;
+            this.exists = false;
         }
-        if (y >= TRE.SCREEN_HEIGHT - 80) {
-            y = TRE.SCREEN_HEIGHT - 80;
+        if (y >= 1200 - 80) {
+            this.exists = false;
         }
     }
 

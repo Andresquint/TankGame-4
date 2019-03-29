@@ -37,10 +37,10 @@ public class Tank{
     private boolean LeftPressed;
     private boolean ShootPressed;
 
-    private ArrayList<Bullet> bulletList;
+    public ArrayList<Bullet> bulletList;
 
 
-    Tank(int x, int y, int vx, int vy, int angle, BufferedImage img) {
+    Tank(int x, int y, int vx, int vy, int angle, BufferedImage img, BufferedImage bulletImg) {
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -48,12 +48,7 @@ public class Tank{
         this.img = img;
         this.angle = angle;
         this.bulletList = new ArrayList<Bullet>();
-        try{
-            bulletImg = read(new File("tank1.png"));
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
+        this.bulletImg = bulletImg;
     }
 
 
@@ -111,6 +106,7 @@ public class Tank{
         }
         if(this.ShootPressed) {
             this.shoot();
+            this.unToggleShootPressed();
         }
         for (Bullet b : this.bulletList){
                 b.update();
@@ -118,7 +114,13 @@ public class Tank{
 
         }
 
+    public int getX(){
+        return this.x;
+    }
 
+    public int getY(){
+        return this.y;
+    }
 
 
     private void rotateLeft() {
@@ -146,7 +148,7 @@ public class Tank{
     }
 
     private void shoot(){
-        Bullet pBullet = new Bullet(x, y, angle, bulletImg);
+        Bullet pBullet = new Bullet(x+30, y+15, angle, bulletImg);
         this.bulletList.add(pBullet);
         System.out.println("Fire!");
 
@@ -159,14 +161,14 @@ public class Tank{
         if (x < 30) {
             x = 30;
         }
-        if (x >= TRE.SCREEN_WIDTH - 88) {
-            x = TRE.SCREEN_WIDTH - 88;
+        if (x >= 1600 - 88) {
+            x = 1600 - 88;
         }
         if (y < 40) {
             y = 40;
         }
-        if (y >= TRE.SCREEN_HEIGHT - 80) {
-            y = TRE.SCREEN_HEIGHT - 80;
+        if (y >= 1200 - 80) {
+            y = 1200 - 80;
         }
     }
 

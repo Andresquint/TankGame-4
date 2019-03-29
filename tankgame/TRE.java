@@ -25,10 +25,6 @@ public class TRE extends JPanel  {
 
     public static final int SCREEN_WIDTH = 800;
     public static final int SCREEN_HEIGHT = 600;
-    public int offsetMaxX = 1400;
-    public int offsetMaxY = 900;
-    public int offsetMinX = 0;
-    public int offsetMinY = 0;
     public BufferedImage world;
     private Graphics2D buffer;
     private JFrame jf;

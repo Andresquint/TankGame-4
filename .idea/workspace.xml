@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81f6df96-df72-402f-a4a3-65f9555cc2c9" name="Default Changelist" comment="lol">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TankGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TankGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tankgame/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/tankgame/Bullet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tankgame/TRE.java" beforeDir="false" afterPath="$PROJECT_DIR$/tankgame/TRE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tankgame/Tank.java" beforeDir="false" afterPath="$PROJECT_DIR$/tankgame/Tank.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tankgame/TRE.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2289">
-              <caret line="154" column="27" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="27" />
+            <state relative-caret-position="-1213">
+              <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,10 +52,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tankgame/Bullet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
+            <state relative-caret-position="799">
               <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -87,9 +83,9 @@
         <option value="$PROJECT_DIR$/Tank.java" />
         <option value="$PROJECT_DIR$/TankControl.java" />
         <option value="$PROJECT_DIR$/tankgame/TankControl.java" />
-        <option value="$PROJECT_DIR$/tankgame/TRE.java" />
         <option value="$PROJECT_DIR$/tankgame/Tank.java" />
         <option value="$PROJECT_DIR$/tankgame/Bullet.java" />
+        <option value="$PROJECT_DIR$/tankgame/TRE.java" />
       </list>
     </option>
   </component>
@@ -126,7 +122,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553897512709" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553897872309" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -180,12 +176,12 @@
       <workItem from="1553666643062" duration="490000" />
       <workItem from="1553750197624" duration="14570000" />
       <workItem from="1553883933968" duration="4666000" />
-      <workItem from="1553896123698" duration="1369000" />
+      <workItem from="1553896123698" duration="1725000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23212000" />
+    <option name="totallyTimeSpent" value="23568000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -261,16 +257,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="lol" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tankgame/TRE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2289">
-          <caret line="154" column="27" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tankgame/TankControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -296,8 +282,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tankgame/Bullet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
+        <state relative-caret-position="799">
           <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tankgame/TRE.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1213">
+          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

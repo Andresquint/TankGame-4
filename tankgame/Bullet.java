@@ -38,13 +38,13 @@ public class Bullet {
     }
 
     private void checkBorder() {
-        if (x < 30) {
+        if (x < 10) {
             this.exists = false;
         }
         if (x >= 2560 - 88) {
             this.exists = false;
         }
-        if (y < 40) {
+        if (y < 10) {
             this.exists = false;
         }
         if (y >= 2560 - 80) {

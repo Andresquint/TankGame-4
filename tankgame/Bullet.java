@@ -4,60 +4,50 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-public class Bullet {
+public class Bullet extends MovingObject {
 
     private int x;
     private int y;
     private int vx;
     private int vy;
     private int angle;
-    public boolean exists = true;
+    private boolean exists = true;
 
     private final int R = 4;
     private BufferedImage img;
 
-    Bullet(int x, int y, int angle, BufferedImage img) {
-        this.x = x;
-        this.y = y;
-        this.vx = vx;
-        this.vy = vy;
-        this.img = img;
-        this.angle = angle;
+    public Bullet(int x, int y, int angle, int vx, int vy, int speed, int rotationalSpeed, BufferedImage img){
+        super(x, y, angle, vx, vy, speed, rotationalSpeed, img);
+    }
+
+    private void checkBorder() {
+        if (this.getX() < 30) {
+            this.setX(30);
+            this.exists = false;
+        }
+        if (this.getX() >= TRE.WORLD_WIDTH - 88) {
+            this.setX(TRE.WORLD_WIDTH - 88);
+            this.exists = false;
+        }
+        if (this.getY() < 30) {
+            this.setY(30);
+            this.exists = false;
+        }
+        if (this.getX() >= TRE.WORLD_HEIGHT - 80) {
+            this.setX(TRE.WORLD_HEIGHT - 80);
+            this.exists = false;
+        }
+    }
+
+    public boolean exists(){
+        return this.exists;
     }
 
     public void update(){
         moveForwards();
-    }
-
-    private void moveForwards() {
-        vx = (int) Math.round(R * Math.cos(Math.toRadians(angle)));
-        vy = (int) Math.round(R * Math.sin(Math.toRadians(angle)));
-        x += vx;
-        y += vy;
         checkBorder();
     }
 
-    private void checkBorder() {
-        if (x < 10) {
-            this.exists = false;
-        }
-        if (x >= 2560 - 88) {
-            this.exists = false;
-        }
-        if (y < 10) {
-            this.exists = false;
-        }
-        if (y >= 2560 - 80) {
-            this.exists = false;
-        }
-    }
-
-    void drawImage(Graphics g) {
-        AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
-        rotation.rotate(Math.toRadians(angle), this.img.getWidth() / 2.0, this.img.getHeight() / 2.0);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(this.img, rotation, null);
-    }
 
 
 }

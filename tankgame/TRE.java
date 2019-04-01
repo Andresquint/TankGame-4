@@ -24,7 +24,7 @@ public class TRE extends JPanel  {
 
 
     public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 600;
+    public static final int SCREEN_HEIGHT = 420;
     public static final int WORLD_WIDTH = 2560;
     public static final int WORLD_HEIGHT = 2560;
 
@@ -36,6 +36,8 @@ public class TRE extends JPanel  {
     private BufferedImage grassimg;
     private Camera cam1;
     private Camera cam2;
+    private Minimap map1;
+    private Minimap map2;
 
 
 
@@ -80,8 +82,8 @@ public class TRE extends JPanel  {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        t1 = new Tank(WORLD_WIDTH/4 - 25, WORLD_HEIGHT/4 - 25, 0, 0, 0, t1img, bulletimg);
-        t2 = new Tank(3*WORLD_WIDTH/4 - 25, 3*WORLD_HEIGHT/4 - 25, 0, 0, 180, t2img, bulletimg);
+        t1 = new Tank(WORLD_WIDTH/4 - 25, WORLD_HEIGHT/4 - 25, 0, 0, 0, 3, 2, t1img, bulletimg);
+        t2 = new Tank(3*WORLD_WIDTH/4 - 25, 3*WORLD_HEIGHT/4 - 25, 180, 0, 0, 3, 2, t2img, bulletimg);
 
 
         TankControl tc1 = new TankControl(t1, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
@@ -95,7 +97,7 @@ public class TRE extends JPanel  {
         this.jf.addKeyListener(tc2);
 
 
-        this.jf.setSize(TRE.SCREEN_WIDTH, TRE.SCREEN_HEIGHT + 30);
+        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + WORLD_HEIGHT/10 + 29);
         this.jf.setResizable(false);
         jf.setLocationRelativeTo(null);
 
@@ -119,14 +121,14 @@ public class TRE extends JPanel  {
         this.t1.drawImage(buffer);
         this.t2.drawImage(buffer);
         for (int i = 0; i < this.t1.bulletList.size(); i++){
-            if (t1.bulletList.get(i).exists) {
+            if (t1.bulletList.get(i).exists()) {
                 t1.bulletList.get(i).drawImage(buffer);
             } else {
                 t1.bulletList.remove(i);
             }
         }
         for (int i = 0; i < this.t2.bulletList.size(); i++){
-            if (t2.bulletList.get(i).exists) {
+            if (t2.bulletList.get(i).exists()) {
                 t2.bulletList.get(i).drawImage(buffer);
             } else {
                 t2.bulletList.remove(i);
@@ -135,9 +137,15 @@ public class TRE extends JPanel  {
         cam1 = new Camera(t1);
         cam2 = new Camera(t2);
 
-        g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2-1, SCREEN_HEIGHT)),0,0,null);
-        g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2, 0, null);
+        map1 = new Minimap(t1);
+        map2 = new Minimap(t2);
 
+
+        g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2, SCREEN_HEIGHT)),0,0,null);
+        g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2+1, 0, null);
+
+        g2.drawImage((world.getSubimage(0, map1.getY(), WORLD_WIDTH, WORLD_HEIGHT/2)), 0, SCREEN_HEIGHT, SCREEN_WIDTH/2, WORLD_HEIGHT/10, null);
+        g2.drawImage((world.getSubimage(0, map2.getY(), WORLD_WIDTH, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/2, WORLD_HEIGHT/10, null);
     }
 
 

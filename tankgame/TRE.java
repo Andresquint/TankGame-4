@@ -144,8 +144,8 @@ public class TRE extends JPanel  {
         g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2, SCREEN_HEIGHT)),0,0,null);
         g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2+1, 0, null);
 
-        g2.drawImage((world.getSubimage(0, map1.getY(), WORLD_WIDTH, WORLD_HEIGHT/2)), 0, SCREEN_HEIGHT, SCREEN_WIDTH/2, WORLD_HEIGHT/10, null);
-        g2.drawImage((world.getSubimage(0, map2.getY(), WORLD_WIDTH, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/2, WORLD_HEIGHT/10, null);
+        g2.drawImage((world.getSubimage(map1.getX(), map1.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/4, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/10, null);
+        g2.drawImage((world.getSubimage(map2.getX(), map2.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/10, null);
     }
 
 

@@ -23,21 +23,24 @@ import java.io.File;
 public class TRE extends JPanel  {
 
 
-    public static final int SCREEN_WIDTH = 1200;
-    public static final int SCREEN_HEIGHT = 420;
-    public static final int WORLD_WIDTH = 2560;
-    public static final int WORLD_HEIGHT = 2560;
+    public static final int SCREEN_WIDTH = 1000;
+    public static final int SCREEN_HEIGHT = 450;
+    public static final int WORLD_WIDTH = 1600;
+    public static final int WORLD_HEIGHT = 1200;
+
+    private GameWorld gameWorld;
+    private Player player1;
+    private Player player2;
 
     private BufferedImage world;
     private Graphics2D buffer;
     private JFrame jf;
     private Tank t1;
     private Tank t2;
-    private BufferedImage grassimg;
+    private BufferedImage background;
     private Camera cam1;
     private Camera cam2;
-    private Minimap map1;
-    private Minimap map2;
+
 
 
 
@@ -48,11 +51,9 @@ public class TRE extends JPanel  {
         try {
 
             while (true) {
-                trex.t1.update();
-                trex.t2.update();
+                trex.player1.getTank().update();
+                trex.player2.getTank().update();
                 trex.repaint();
-                System.out.println(trex.t1);
-                System.out.println(trex.t2);
                 Thread.sleep(1000 / 144);
             }
         } catch (InterruptedException ignored) {
@@ -76,18 +77,24 @@ public class TRE extends JPanel  {
             t1img = read(new File("tank1.png"));
             t2img = read(new File("tank1.png"));
             bulletimg = read(new File("bullet.png"));
-            grassimg = read(new File("grasstile.png"));
+            //background = read(new File("Background.bmp"));
 
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        t1 = new Tank(WORLD_WIDTH/4 - 25, WORLD_HEIGHT/4 - 25, 0, 0, 0, 3, 2, t1img, bulletimg);
-        t2 = new Tank(3*WORLD_WIDTH/4 - 25, 3*WORLD_HEIGHT/4 - 25, 180, 0, 0, 3, 2, t2img, bulletimg);
+
+        gameWorld = new GameWorld();
+
+        player1 = new Player(gameWorld.getPlayer(1));
+        player2 = new Player(gameWorld.getPlayer(2));
+
+        //t1 = new Tank(WORLD_WIDTH/4 - 25, WORLD_HEIGHT/4 - 25, 0, 0, 0, 3, 2, t1img, bulletimg);
+        //t2 = new Tank(3*WORLD_WIDTH/4 - 25, 3*WORLD_HEIGHT/4 - 25, 180, 0, 0, 3, 2, t2img, bulletimg);
 
 
-        TankControl tc1 = new TankControl(t1, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
-        TankControl tc2 = new TankControl(t2, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ENTER);
+        TankControl tc1 = new TankControl(player1.getTank(), KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE);
+        TankControl tc2 = new TankControl(player2.getTank(), KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_ENTER);
 
         this.jf.setLayout(new BorderLayout());
         this.jf.add(this);
@@ -97,12 +104,14 @@ public class TRE extends JPanel  {
         this.jf.addKeyListener(tc2);
 
 
-        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + WORLD_HEIGHT/10 + 29);
+        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + WORLD_HEIGHT/5 + 29);
         this.jf.setResizable(false);
         jf.setLocationRelativeTo(null);
 
         this.jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.jf.setVisible(true);
+
+        this.setBackground(Color.black);
 
 
     }
@@ -112,40 +121,46 @@ public class TRE extends JPanel  {
         Graphics2D g2 = (Graphics2D) g;
         buffer = world.createGraphics();
         super.paintComponent(g2);
-        buffer.clearRect(0,0, WORLD_WIDTH, WORLD_HEIGHT);
-        for (int y = 0; y < WORLD_HEIGHT; y+=WORLD_HEIGHT/10 ){
-            for (int x = 0; x < WORLD_WIDTH; x+=WORLD_WIDTH/10){
-                buffer.drawImage(grassimg, x, y, null);
+        gameWorld.drawWorld(buffer);
+        //buffer.clearRect(0,0, WORLD_WIDTH, WORLD_HEIGHT);
+        //buffer.drawImage(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT, null);
+        /*for (int y = 0; y < WORLD_HEIGHT; y+=WORLD_HEIGHT/5 ){
+            for (int x = 0; x < WORLD_WIDTH; x+=WORLD_WIDTH/5){
+                buffer.drawImage(background, x, y, null);
             }
-        }
-        this.t1.drawImage(buffer);
-        this.t2.drawImage(buffer);
-        for (int i = 0; i < this.t1.bulletList.size(); i++){
-            if (t1.bulletList.get(i).exists()) {
-                t1.bulletList.get(i).drawImage(buffer);
+        }*/
+        this.player1.getTank().drawImage(buffer);
+        this.player2.getTank().drawImage(buffer);
+        for (int i = 0; i < this.player1.getTank().bulletList.size(); i++){
+            if (this.player1.getTank().bulletList.get(i).exists()) {
+                this.player1.getTank().bulletList.get(i).drawImage(buffer);
             } else {
-                t1.bulletList.remove(i);
+                this.player1.getTank().bulletList.remove(i);
             }
         }
-        for (int i = 0; i < this.t2.bulletList.size(); i++){
-            if (t2.bulletList.get(i).exists()) {
-                t2.bulletList.get(i).drawImage(buffer);
+        for (int i = 0; i < this.player2.getTank().bulletList.size(); i++){
+            if (this.player2.getTank().bulletList.get(i).exists()) {
+                this.player2.getTank().bulletList.get(i).drawImage(buffer);
             } else {
-                t2.bulletList.remove(i);
+                this.player2.getTank().bulletList.remove(i);
             }
         }
-        cam1 = new Camera(t1);
-        cam2 = new Camera(t2);
+        cam1 = new Camera(this.player1.getTank());
+        cam2 = new Camera(this.player2.getTank());
 
-        map1 = new Minimap(t1);
-        map2 = new Minimap(t2);
+
 
 
         g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2, SCREEN_HEIGHT)),0,0,null);
         g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2+1, 0, null);
 
-        g2.drawImage((world.getSubimage(map1.getX(), map1.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/4, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/10, null);
-        g2.drawImage((world.getSubimage(map2.getX(), map2.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/10, null);
+        g2.drawImage((world.getSubimage(0, 0, WORLD_WIDTH, WORLD_HEIGHT)), SCREEN_WIDTH/2-SCREEN_WIDTH/8, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/5, null);
+        //g2.drawImage((world.getSubimage(map2.getX(), map2.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/5, null);
+        g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32, 33*SCREEN_HEIGHT/32, null);
+        g2.drawImage(gameWorld.getTankImg(), 2*SCREEN_WIDTH/3 - 10, 33*SCREEN_HEIGHT/32, null);
+
+
+
     }
 
 

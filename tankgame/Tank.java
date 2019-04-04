@@ -137,5 +137,19 @@ public class Tank extends MovingObject{
         }
     }
 
+    @Override
+
+    public void drawImage(Graphics g){
+        super.drawImage(g);
+        g.drawRect(this.getX()-5, this.getY()-5, this.img.getWidth()+10, this.img.getHeight()+10);
+        for (int i = 0; i < this.bulletList.size(); i++){
+            if (this.bulletList.get(i).exists()) {
+                this.bulletList.get(i).drawImage(g);
+            } else {
+                this.bulletList.remove(i);
+            }
+        }
+    }
+
 
 }

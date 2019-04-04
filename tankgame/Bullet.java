@@ -6,9 +6,6 @@ import java.awt.image.BufferedImage;
 
 public class Bullet extends MovingObject {
 
-
-    private boolean exists = true;
-
     private BufferedImage img;
 
     public Bullet(BufferedImage img, int x, int y, int angle ){
@@ -33,10 +30,6 @@ public class Bullet extends MovingObject {
             this.setY(TRE.WORLD_HEIGHT - 80);
             this.exists = false;
         }
-    }
-
-    public boolean exists(){
-        return this.exists;
     }
 
     public void update(){

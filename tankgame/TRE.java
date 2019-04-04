@@ -23,10 +23,10 @@ import java.io.File;
 public class TRE extends JPanel  {
 
 
-    public static final int SCREEN_WIDTH = 1000;
+    public static final int SCREEN_WIDTH = 1200;
     public static final int SCREEN_HEIGHT = 450;
     public static final int WORLD_WIDTH = 1600;
-    public static final int WORLD_HEIGHT = 1200;
+    public static final int WORLD_HEIGHT = 1600;
 
     private GameWorld gameWorld;
     private Player player1;
@@ -80,6 +80,7 @@ public class TRE extends JPanel  {
             //background = read(new File("Background.bmp"));
 
 
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -104,7 +105,7 @@ public class TRE extends JPanel  {
         this.jf.addKeyListener(tc2);
 
 
-        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + WORLD_HEIGHT/5 + 29);
+        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + 269);
         this.jf.setResizable(false);
         jf.setLocationRelativeTo(null);
 
@@ -129,9 +130,9 @@ public class TRE extends JPanel  {
                 buffer.drawImage(background, x, y, null);
             }
         }*/
-        this.player1.getTank().drawImage(buffer);
-        this.player2.getTank().drawImage(buffer);
-        for (int i = 0; i < this.player1.getTank().bulletList.size(); i++){
+        //this.player1.getTank().drawImage(buffer);
+        //this.player2.getTank().drawImage(buffer);
+        /*for (int i = 0; i < this.player1.getTank().bulletList.size(); i++){
             if (this.player1.getTank().bulletList.get(i).exists()) {
                 this.player1.getTank().bulletList.get(i).drawImage(buffer);
             } else {
@@ -144,7 +145,8 @@ public class TRE extends JPanel  {
             } else {
                 this.player2.getTank().bulletList.remove(i);
             }
-        }
+        }*/
+
         cam1 = new Camera(this.player1.getTank());
         cam2 = new Camera(this.player2.getTank());
 
@@ -154,7 +156,7 @@ public class TRE extends JPanel  {
         g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2, SCREEN_HEIGHT)),0,0,null);
         g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2+1, 0, null);
 
-        g2.drawImage((world.getSubimage(0, 0, WORLD_WIDTH, WORLD_HEIGHT)), SCREEN_WIDTH/2-SCREEN_WIDTH/8, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/5, null);
+        g2.drawImage((world.getSubimage(0, 0, WORLD_WIDTH, WORLD_HEIGHT)), SCREEN_WIDTH/2-SCREEN_WIDTH/8, SCREEN_HEIGHT, SCREEN_WIDTH/4, 240, null);
         //g2.drawImage((world.getSubimage(map2.getX(), map2.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/5, null);
         g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32, 33*SCREEN_HEIGHT/32, null);
         g2.drawImage(gameWorld.getTankImg(), 2*SCREEN_WIDTH/3 - 10, 33*SCREEN_HEIGHT/32, null);

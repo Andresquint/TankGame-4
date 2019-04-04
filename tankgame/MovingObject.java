@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class MovingObject extends GameObject {
 
-    private int vx = 0;
-    private int vy = 0;
+    protected int vx = 0;
+    protected int vy = 0;
     protected int speed = 0;
     protected int rotationalSpeed = 0;
 

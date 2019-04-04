@@ -6,16 +6,19 @@ import java.awt.*;
 
 public abstract class GameObject {
 
-    private int x;
-    private int y;
-    private int angle;
-    private BufferedImage img;
+    protected int x;
+    protected int y;
+    protected int angle;
+    protected BufferedImage img;
+
+    protected boolean exists;
 
     public GameObject(int x, int y, int angle, BufferedImage img){
         this.x = x;
         this.y = y;
         this.angle = angle;
         this.img = img;
+        this.exists = true;
     }
 
     protected int getX(){
@@ -36,6 +39,10 @@ public abstract class GameObject {
 
     protected BufferedImage getImg(){
         return this.img;
+    }
+
+    protected Boolean exists(){
+        return this.exists;
     }
 
     public void drawImage(Graphics g){

@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.ArrayList;
+
 import static javax.imageio.ImageIO.read;
 
 public class GameWorld {
@@ -13,11 +15,18 @@ public class GameWorld {
     private BufferedImage background;
     private BufferedImage tankImg;
     private BufferedImage bulletImg;
+    private BufferedImage wall1;
+    private BufferedImage wall2;
     private TileManager tileManager;
     private Tank player1;
     private Tank player2;
 
+    private static ArrayList<GameObject> worldList;
+
     public GameWorld(){
+
+        worldList = new ArrayList<>();
+
         try {
             System.out.println(System.getProperty("user.dir"));
             /*
@@ -25,8 +34,10 @@ public class GameWorld {
              * current working directory.
              */
             background = read(new File("Background.bmp"));
-            tankImg  = read(new File("tank.png"));
+            tankImg  = read(new File("newTank.png"));
             bulletImg = read(new File("bullet.png"));
+            wall1 = read(new File("wall1.png"));
+            wall2 = read(new File("wall2.png"));
 
 
         } catch (IOException ex) {
@@ -36,13 +47,20 @@ public class GameWorld {
         player1 = new Tank(tankImg, TRE.WORLD_WIDTH/4 - 25, TRE.WORLD_HEIGHT/4 - 25, 0);
         player2 = new Tank(tankImg, 3*TRE.WORLD_WIDTH/4 - 25, 3*TRE.WORLD_HEIGHT/4 - 25, 180);
 
-        tileManager = new TileManager(background);
+        this.addGameObject(player1);
+        this.addGameObject(player2);
+
+        tileManager = new TileManager(background, wall1, wall2);
+        tileManager.setUpMap("map.txt");
     }
 
 
 
     public void drawWorld(Graphics2D buffer){
         tileManager.drawLayout(buffer);
+        for (GameObject object : worldList){
+            object.drawImage(buffer);
+        }
     }
     public Tank getPlayer(int player){
         if (player==1){
@@ -55,6 +73,10 @@ public class GameWorld {
 
     public BufferedImage getTankImg(){
         return this.tankImg;
+    }
+
+    public static void addGameObject(GameObject object){
+        worldList.add(object);
     }
 
 }

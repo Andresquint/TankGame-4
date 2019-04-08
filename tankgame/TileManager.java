@@ -43,9 +43,6 @@ public class TileManager {
 
                     }
                 }
-                for (int i : row){
-                    System.out.println(i);
-                }
                 map.add(row);
 
             }
@@ -61,9 +58,9 @@ public class TileManager {
                 if (!(map.get(y).get(x).equals(0))){
                     Wall wall;
                     switch (map.get(y).get(x)){
-                        case 1: GameWorld.addGameObject(wall = new Wall(wall1, x*32, y*32, 1));
+                        case 1: GameWorld.addGameObject(wall = new Wall(wall1, x*64, y*64, 1));
                             break;
-                        case 2: GameWorld.addGameObject(wall = new Wall(wall2, x*32, y*32, 2));
+                        case 2: GameWorld.addGameObject(wall = new Wall(wall2, x*64, y*64, 2));
                             break;
                         default: break;
                     }

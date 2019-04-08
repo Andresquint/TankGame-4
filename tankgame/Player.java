@@ -44,5 +44,12 @@ public class Player {
     public Tank getTank(){
         return this.tank;
     }
+    public void setHealth(int damage){
+        this.health = this.health - damage;
+        System.out.println("Current Health: " + this.health);
+    }
+    public int getHealth(){
+        return this.health;
+    }
 
 }

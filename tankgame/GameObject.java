@@ -45,6 +45,10 @@ public abstract class GameObject {
         return this.exists;
     }
 
+    protected void setExists(Boolean b){
+        this.exists = b;
+    }
+
     public void drawImage(Graphics g){
         AffineTransform rotation = AffineTransform.getTranslateInstance(x, y);
         rotation.rotate(Math.toRadians(angle), this.img.getWidth() / 2.0, this.img.getHeight() / 2.0);

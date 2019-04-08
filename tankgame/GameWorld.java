@@ -47,8 +47,6 @@ public class GameWorld {
         player1 = new Tank(tankImg, TRE.WORLD_WIDTH/4 - 25, TRE.WORLD_HEIGHT/4 - 25, 0);
         player2 = new Tank(tankImg, 3*TRE.WORLD_WIDTH/4 - 25, 3*TRE.WORLD_HEIGHT/4 - 25, 180);
 
-        this.addGameObject(player1);
-        this.addGameObject(player2);
 
         tileManager = new TileManager(background, wall1, wall2);
         tileManager.setUpMap("map.txt");
@@ -58,8 +56,14 @@ public class GameWorld {
 
     public void drawWorld(Graphics2D buffer){
         tileManager.drawLayout(buffer);
-        for (GameObject object : worldList){
-            object.drawImage(buffer);
+        player1.drawImage(buffer);
+        player2.drawImage(buffer);
+        for (int i = 0; i < worldList.size(); i++){
+            if(worldList.get(i).exists){
+                worldList.get(i).drawImage(buffer);
+            }else{
+                worldList.remove(i);
+            }
         }
     }
     public Tank getPlayer(int player){
@@ -78,5 +82,7 @@ public class GameWorld {
     public static void addGameObject(GameObject object){
         worldList.add(object);
     }
+
+    public static ArrayList<GameObject> getWorldList(){return worldList;}
 
 }

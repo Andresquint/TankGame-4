@@ -23,7 +23,7 @@ import java.io.File;
 public class TRE extends JPanel  {
 
 
-    public static final int SCREEN_WIDTH = 1200;
+    public static final int SCREEN_WIDTH = 1000;
     public static final int SCREEN_HEIGHT = 450;
     public static final int WORLD_WIDTH = 1600;
     public static final int WORLD_HEIGHT = 1600;
@@ -41,6 +41,8 @@ public class TRE extends JPanel  {
     private Camera cam1;
     private Camera cam2;
 
+    private CollisionDetector CD;
+
 
 
 
@@ -53,6 +55,8 @@ public class TRE extends JPanel  {
             while (true) {
                 trex.player1.getTank().update();
                 trex.player2.getTank().update();
+                trex.CD.playerVsbullet(trex.player1, trex.player2);
+                trex.CD.bulletVswall(trex.player1, trex.player2);
                 trex.repaint();
                 Thread.sleep(1000 / 144);
             }
@@ -90,6 +94,8 @@ public class TRE extends JPanel  {
         player1 = new Player(gameWorld.getPlayer(1));
         player2 = new Player(gameWorld.getPlayer(2));
 
+        CD = new CollisionDetector(player1, player2);
+
         //t1 = new Tank(WORLD_WIDTH/4 - 25, WORLD_HEIGHT/4 - 25, 0, 0, 0, 3, 2, t1img, bulletimg);
         //t2 = new Tank(3*WORLD_WIDTH/4 - 25, 3*WORLD_HEIGHT/4 - 25, 180, 0, 0, 3, 2, t2img, bulletimg);
 
@@ -123,43 +129,18 @@ public class TRE extends JPanel  {
         buffer = world.createGraphics();
         super.paintComponent(g2);
         gameWorld.drawWorld(buffer);
-        //buffer.clearRect(0,0, WORLD_WIDTH, WORLD_HEIGHT);
-        //buffer.drawImage(background, 0, 0, WORLD_WIDTH, WORLD_HEIGHT, null);
-        /*for (int y = 0; y < WORLD_HEIGHT; y+=WORLD_HEIGHT/5 ){
-            for (int x = 0; x < WORLD_WIDTH; x+=WORLD_WIDTH/5){
-                buffer.drawImage(background, x, y, null);
-            }
-        }*/
-        //this.player1.getTank().drawImage(buffer);
-        //this.player2.getTank().drawImage(buffer);
-        /*for (int i = 0; i < this.player1.getTank().bulletList.size(); i++){
-            if (this.player1.getTank().bulletList.get(i).exists()) {
-                this.player1.getTank().bulletList.get(i).drawImage(buffer);
-            } else {
-                this.player1.getTank().bulletList.remove(i);
-            }
-        }
-        for (int i = 0; i < this.player2.getTank().bulletList.size(); i++){
-            if (this.player2.getTank().bulletList.get(i).exists()) {
-                this.player2.getTank().bulletList.get(i).drawImage(buffer);
-            } else {
-                this.player2.getTank().bulletList.remove(i);
-            }
-        }*/
 
         cam1 = new Camera(this.player1.getTank());
         cam2 = new Camera(this.player2.getTank());
 
-
-
-
         g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2, SCREEN_HEIGHT)),0,0,null);
         g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2+1, 0, null);
-
         g2.drawImage((world.getSubimage(0, 0, WORLD_WIDTH, WORLD_HEIGHT)), SCREEN_WIDTH/2-SCREEN_WIDTH/8, SCREEN_HEIGHT, SCREEN_WIDTH/4, 240, null);
-        //g2.drawImage((world.getSubimage(map2.getX(), map2.getY(), WORLD_WIDTH/2, WORLD_HEIGHT/2)), SCREEN_WIDTH/2+1, SCREEN_HEIGHT, SCREEN_WIDTH/4, WORLD_HEIGHT/5, null);
         g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32, 33*SCREEN_HEIGHT/32, null);
         g2.drawImage(gameWorld.getTankImg(), 2*SCREEN_WIDTH/3 - 10, 33*SCREEN_HEIGHT/32, null);
+        g2.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g2.drawString(("Health: " + this.player1.getHealth()), SCREEN_WIDTH/30, 34*SCREEN_HEIGHT/32);
+        g2.drawString(("Health: " + this.player2.getHealth()), 2*SCREEN_WIDTH/3 + 10, 34*SCREEN_HEIGHT/32);
 
 
 

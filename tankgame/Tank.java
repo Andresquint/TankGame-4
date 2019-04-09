@@ -108,8 +108,8 @@ public class Tank extends MovingObject{
             this.shoot();
             this.unToggleShootPressed();
         }
-        for (Bullet b : this.bulletList){
-                b.update();
+        for (int i = 0; i < this.bulletList.size(); i ++){
+                this.bulletList.get(i).update();
             }
 
         }

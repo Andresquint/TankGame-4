@@ -16,14 +16,16 @@ public class CollisionDetector {
         Rectangle tankOneBox = new Rectangle(player1.getTank().getX(), player1.getTank().getY(), player1.getTank().getImg().getWidth(), player1.getTank().getImg().getHeight());
         Rectangle tankTwoBox = new Rectangle(player2.getTank().getX(), player2.getTank().getY(), player2.getTank().getImg().getWidth(), player2.getTank().getImg().getHeight());
         Rectangle bulletBox;
-        for (Bullet b : player1.getTank().bulletList){
+        for (int i = 0; i < player1.getTank().bulletList.size(); i++){
+            Bullet b = player1.getTank().bulletList.get(i);
             bulletBox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
             if(tankTwoBox.intersects(bulletBox)){
                 b.setExists(false);
                 player2.setHealth(25);
             }
         }
-        for (Bullet b : player2.getTank().bulletList){
+        for (int i = 0; i < player2.getTank().bulletList.size(); i++){
+            Bullet b = player2.getTank().bulletList.get(i);
             bulletBox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
             if(tankOneBox.intersects(bulletBox)){
                 b.setExists(false);
@@ -36,9 +38,11 @@ public class CollisionDetector {
         Rectangle bulletbox;
         Rectangle wallbox;
 
-        for (Bullet b : player1.getTank().bulletList){
+        for (int i = 0; i < player1.getTank().bulletList.size(); i++){
+            Bullet b = player1.getTank().bulletList.get(i);
             bulletbox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
-            for (GameObject obj : GameWorld.getWorldList()) {
+            for (int j = 0; j < GameWorld.getWorldList().size(); j++) {
+                GameObject obj = GameWorld.getWorldList().get(j);
                 if (obj instanceof Wall) {
                     wallbox = new Rectangle(obj.getX(), obj.getY(), obj.getImg().getWidth(), obj.getImg().getHeight());
                     if (bulletbox.intersects(wallbox)) {
@@ -51,9 +55,11 @@ public class CollisionDetector {
             }
         }
 
-        for (Bullet b : player2.getTank().bulletList){
+        for (int i = 0; i < player2.getTank().bulletList.size(); i++){
+            Bullet b = player2.getTank().bulletList.get(i);
             bulletbox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
-            for (GameObject obj : GameWorld.getWorldList()) {
+            for (int j = 0; j < GameWorld.getWorldList().size(); j++) {
+                GameObject obj = GameWorld.getWorldList().get(j);
                 if (obj instanceof Wall) {
                     wallbox = new Rectangle(obj.getX(), obj.getY(), obj.getImg().getWidth(), obj.getImg().getHeight());
                     if (bulletbox.intersects(wallbox)) {
@@ -105,7 +111,8 @@ public class CollisionDetector {
             }
         }
 
-        for (GameObject obj : GameWorld.getWorldList()){
+        for (int i = 0; i < GameWorld.getWorldList().size(); i++) {
+            GameObject obj = GameWorld.getWorldList().get(i);
             objBox = new Rectangle(obj.getX(), obj.getY(), obj.getImg().getWidth(), obj.getImg().getHeight());
             if(obj instanceof Wall){
                 if (tankOneBox.intersects(objBox)) {

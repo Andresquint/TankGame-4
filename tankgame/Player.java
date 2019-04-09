@@ -12,6 +12,7 @@ public class Player {
     private int health;
     private int armor;
     private int score;
+    public final static int MAX_HEALTH = 275;
 
 
     private BufferedImage tankImg;
@@ -20,7 +21,7 @@ public class Player {
 
     public Player(Tank tank){
         this.lives = 3;
-        this.health = 275;
+        this.health = MAX_HEALTH;
         this.armor = 0;
         this.score = 0;
 
@@ -45,11 +46,13 @@ public class Player {
         return this.tank;
     }
     public void setHealth(int damage){
-        if ((this.health - damage) > 0) {
+        if ((this.health - damage) > 0 && !(this.health - damage > MAX_HEALTH )) {
             this.health = this.health - damage;
             System.out.println("Current Health: " + this.health);
         }
-        else {
+        else if (this.health - damage > MAX_HEALTH ) {
+            this.health = MAX_HEALTH;
+        }else{
             this.health = 275;
             this.loseLife();
         }

@@ -11,12 +11,14 @@ public class TileManager {
     BufferedImage background;
     BufferedImage wall1;
     BufferedImage wall2;
+    BufferedImage powerup;
     ArrayList<ArrayList<Integer>> map = new ArrayList<>();
 
-    public TileManager(BufferedImage background, BufferedImage wall1, BufferedImage wall2){
+    public TileManager(BufferedImage background, BufferedImage wall1, BufferedImage wall2, BufferedImage powerup){
         this.background = background;
         this.wall1 = wall1;
         this.wall2 = wall2;
+        this.powerup = powerup;
     }
 
     public void setUpMap(String fileName){
@@ -57,12 +59,14 @@ public class TileManager {
             for (int x = 0; x <map.get(y).size(); x++){
                 if (!(map.get(y).get(x).equals(0))){
                     Wall wall;
+                    Powerup powerup;
                     switch (map.get(y).get(x)){
-                        case 1: GameWorld.addGameObject(wall = new Wall(wall1, x*64, y*64, 1));
+                        case 1: GameWorld.addGameObject(wall = new Wall(this.wall1, x*64, y*64, 1));
                             break;
-                        case 2: GameWorld.addGameObject(wall = new Wall(wall2, x*64, y*64, 2));
+                        case 2: GameWorld.addGameObject(wall = new Wall(this.wall2, x*64, y*64, 2));
                             break;
-                        default: break;
+                        case 3: GameWorld.addGameObject(powerup = new Powerup(this.powerup, x*64, y*64));
+                            break;
                     }
                 }
             }

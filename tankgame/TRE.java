@@ -32,6 +32,8 @@ public class TRE extends JPanel  {
     private Player player1;
     private Player player2;
 
+    private BufferedImage heart;
+
     private BufferedImage world;
     private Graphics2D buffer;
     private JFrame jf;
@@ -79,10 +81,7 @@ public class TRE extends JPanel  {
              * note class loaders read files from the out folder (build folder in netbeans) and not the
              * current working directory.
              */
-            t1img = read(new File("tank1.png"));
-            t2img = read(new File("tank1.png"));
-            bulletimg = read(new File("bullet.png"));
-            //background = read(new File("Background.bmp"));
+          heart = read(new File("heart.png"));
 
 
 
@@ -112,7 +111,7 @@ public class TRE extends JPanel  {
         this.jf.addKeyListener(tc2);
 
 
-        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + 269);
+        this.jf.setSize(TRE.SCREEN_WIDTH+1, TRE.SCREEN_HEIGHT + 285);
         this.jf.setResizable(false);
         jf.setLocationRelativeTo(null);
 
@@ -138,11 +137,16 @@ public class TRE extends JPanel  {
         g2.drawImage((world.getSubimage(cam1.getX(), cam1.getY(), SCREEN_WIDTH/2, SCREEN_HEIGHT)),0,0,null);
         g2.drawImage((world.getSubimage(cam2.getX(), cam2.getY(),  SCREEN_WIDTH/2, SCREEN_HEIGHT)), SCREEN_WIDTH/2+1, 0, null);
         g2.drawImage((world.getSubimage(0, 0, WORLD_WIDTH, WORLD_HEIGHT)), SCREEN_WIDTH/2-SCREEN_WIDTH/8, SCREEN_HEIGHT, SCREEN_WIDTH/4, 240, null);
-        g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32, 33*SCREEN_HEIGHT/32, null);
-        g2.drawImage(gameWorld.getTankImg(), 2*SCREEN_WIDTH/3 - 10, 33*SCREEN_HEIGHT/32, null);
+        g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32 - 15, 33*SCREEN_HEIGHT/32, null);
+        g2.drawImage(gameWorld.getTankImg(), 2*SCREEN_WIDTH/3 - 15, 33*SCREEN_HEIGHT/32, null);
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g2.drawString(("Health: " + this.player1.getHealth()), SCREEN_WIDTH/30 + 55, 34*SCREEN_HEIGHT/32 + 20);
-        g2.drawString(("Health: " + this.player2.getHealth()), 2*SCREEN_WIDTH/3 + 50, 34*SCREEN_HEIGHT/32 + 20);
+        g2.drawRect(SCREEN_WIDTH/30 + 50, 33*SCREEN_HEIGHT/32, 250, 50);
+        g2.fillRect(SCREEN_WIDTH/30 + 50, 33*SCREEN_HEIGHT/32, player1.getHealth(), 50);
+        for (int i = 0; i < player1.getLives(); i++){
+        g2.drawImage(heart, SCREEN_WIDTH/32 - 17, 33*SCREEN_HEIGHT/32 + 60*(1 + i), null);
+        }
+        //g2.drawString(("Health: " + this.player1.getHealth()), SCREEN_WIDTH/30 + 55, 34*SCREEN_HEIGHT/32 + 20);
+        //g2.drawString(("Health: " + this.player2.getHealth()), 2*SCREEN_WIDTH/3 + 50, 34*SCREEN_HEIGHT/32 + 20);
 
 
 

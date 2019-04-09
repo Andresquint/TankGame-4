@@ -20,14 +20,14 @@ public class CollisionDetector {
             bulletBox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
             if(tankTwoBox.intersects(bulletBox)){
                 b.setExists(false);
-                player2.setHealth(10);
+                player2.setHealth(25);
             }
         }
         for (Bullet b : player2.getTank().bulletList){
             bulletBox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
             if(tankOneBox.intersects(bulletBox)){
                 b.setExists(false);
-                player1.setHealth(10);
+                player1.setHealth(25);
             }
         }
     }
@@ -106,8 +106,8 @@ public class CollisionDetector {
         }
 
         for (GameObject obj : GameWorld.getWorldList()){
-            if(!(obj instanceof Tank)){
-                objBox = new Rectangle(obj.getX(), obj.getY(), obj.getImg().getWidth(), obj.getImg().getHeight());
+            objBox = new Rectangle(obj.getX(), obj.getY(), obj.getImg().getWidth(), obj.getImg().getHeight());
+            if(obj instanceof Wall){
                 if (tankOneBox.intersects(objBox)) {
                     intersection = tankOneBox.createIntersection(objBox);
                     if (intersection.getMaxX() >= tankOneBox.getMaxX()){
@@ -138,6 +138,16 @@ public class CollisionDetector {
                     if(intersection.getMaxY() >= objBox.getMaxY()){
                         player2.getTank().setY(player2.getTank().getY() + 2);
                     }
+                }
+            }
+            if (obj instanceof Powerup){
+                if (tankOneBox.intersects(objBox)){
+                    obj.setExists(false);
+                    player1.setHealth(-30);
+                }
+                if (tankTwoBox.intersects(objBox)){
+                    obj.setExists(false);
+                    player2.setHealth(-30);
                 }
             }
         }

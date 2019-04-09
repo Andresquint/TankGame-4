@@ -20,7 +20,7 @@ public class Player {
 
     public Player(Tank tank){
         this.lives = 3;
-        this.health = 100;
+        this.health = 275;
         this.armor = 0;
         this.score = 0;
 
@@ -45,11 +45,30 @@ public class Player {
         return this.tank;
     }
     public void setHealth(int damage){
-        this.health = this.health - damage;
-        System.out.println("Current Health: " + this.health);
+        if ((this.health - damage) > 0) {
+            this.health = this.health - damage;
+            System.out.println("Current Health: " + this.health);
+        }
+        else {
+            this.health = 275;
+            this.loseLife();
+        }
     }
     public int getHealth(){
         return this.health;
+    }
+
+    public int getLives(){
+        return this.lives;
+    }
+
+    public void loseLife(){
+        if (this.lives != 1){
+            this.lives--;
+        }else{
+            this.lives = 0;
+            this.getTank().setExists(false);
+        }
     }
 
 }

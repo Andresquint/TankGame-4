@@ -55,8 +55,9 @@ public class TRE extends JPanel  {
             while (true) {
                 trex.player1.getTank().update();
                 trex.player2.getTank().update();
-                trex.CD.playerVsbullet(trex.player1, trex.player2);
-                trex.CD.bulletVswall(trex.player1, trex.player2);
+                trex.CD.playerVsbullet();
+                trex.CD.bulletVswall();
+                trex.CD.playerVsobject();
                 trex.repaint();
                 Thread.sleep(1000 / 144);
             }
@@ -119,6 +120,7 @@ public class TRE extends JPanel  {
         this.jf.setVisible(true);
 
         this.setBackground(Color.black);
+        this.setForeground(Color.GREEN);
 
 
     }
@@ -139,8 +141,8 @@ public class TRE extends JPanel  {
         g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32, 33*SCREEN_HEIGHT/32, null);
         g2.drawImage(gameWorld.getTankImg(), 2*SCREEN_WIDTH/3 - 10, 33*SCREEN_HEIGHT/32, null);
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g2.drawString(("Health: " + this.player1.getHealth()), SCREEN_WIDTH/30, 34*SCREEN_HEIGHT/32);
-        g2.drawString(("Health: " + this.player2.getHealth()), 2*SCREEN_WIDTH/3 + 10, 34*SCREEN_HEIGHT/32);
+        g2.drawString(("Health: " + this.player1.getHealth()), SCREEN_WIDTH/30 + 55, 34*SCREEN_HEIGHT/32 + 20);
+        g2.drawString(("Health: " + this.player2.getHealth()), 2*SCREEN_WIDTH/3 + 50, 34*SCREEN_HEIGHT/32 + 20);
 
 
 

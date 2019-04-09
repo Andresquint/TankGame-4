@@ -138,6 +138,14 @@ public class Tank extends MovingObject{
         }
     }
 
+    public Boolean getUpPressed(){
+        return this.UpPressed;
+    }
+    public Boolean getDownPressed(){
+        return this.DownPressed;
+    }
+
+
     @Override
 
     public void drawImage(Graphics g){

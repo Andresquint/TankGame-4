@@ -76,20 +76,20 @@ public class CollisionDetector {
         if (tankOneBox.intersects(tankTwoBox)){
             intersection = tankOneBox.createIntersection(tankTwoBox);
             if (intersection.getMaxX() >= tankOneBox.getMaxX()){
-                player1.getTank().setX(player1.getTank().getX() - 2);
-                player2.getTank().setX(player2.getTank().getX() + 2);
+                player1.getTank().setX(player1.getTank().getX() - 1);
+                player2.getTank().setX(player2.getTank().getX() + 1);
             }
             if(intersection.getMaxX() >= tankTwoBox.getMaxX()){
-                player1.getTank().setX(player1.getTank().getX() + 2);
-                player2.getTank().setX(player2.getTank().getX() - 2);
+                player1.getTank().setX(player1.getTank().getX() + 1);
+                player2.getTank().setX(player2.getTank().getX() - 1);
             }
             if(intersection.getMaxY() >= tankOneBox.getMaxY()){
-                player1.getTank().setY(player1.getTank().getY() - 2);
-                player2.getTank().setY(player2.getTank().getY() + 2);
+                player1.getTank().setY(player1.getTank().getY() - 1);
+                player2.getTank().setY(player2.getTank().getY() + 1);
             }
             if(intersection.getMaxY() >= tankTwoBox.getMaxY()){
-                player1.getTank().setY(player1.getTank().getY() + 2);
-                player2.getTank().setY(player2.getTank().getY() - 2);
+                player1.getTank().setY(player1.getTank().getY() + 1);
+                player2.getTank().setY(player2.getTank().getY() - 1);
             }
             if(player1.getTank().getUpPressed()){
                 player1.getTank().toggleUpPressed();

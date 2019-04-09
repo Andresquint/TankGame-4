@@ -46,8 +46,8 @@ public class Tank extends MovingObject{
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        this.speed = 3;
-        this.rotationalSpeed = 3;
+        this.speed = 2;
+        this.rotationalSpeed = 2;
 
     }
 

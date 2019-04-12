@@ -11,14 +11,18 @@ public class TileManager {
     BufferedImage background;
     BufferedImage wall1;
     BufferedImage wall2;
-    BufferedImage powerup;
+    private BufferedImage healthUp;
+    private BufferedImage shieldUp;
+    private BufferedImage rangeUp;
     ArrayList<ArrayList<Integer>> map = new ArrayList<>();
 
-    public TileManager(BufferedImage background, BufferedImage wall1, BufferedImage wall2, BufferedImage powerup){
+    public TileManager(BufferedImage background, BufferedImage wall1, BufferedImage wall2, BufferedImage healthUp, BufferedImage shieldUp, BufferedImage rangeUp){
         this.background = background;
         this.wall1 = wall1;
         this.wall2 = wall2;
-        this.powerup = powerup;
+        this.healthUp = healthUp;
+        this.shieldUp = shieldUp;
+        this.rangeUp = rangeUp;
     }
 
     public void setUpMap(String fileName){
@@ -58,14 +62,17 @@ public class TileManager {
         for (int y = 0; y < map.size(); y++ ){
             for (int x = 0; x <map.get(y).size(); x++){
                 if (!(map.get(y).get(x).equals(0))){
-                    Wall wall;
-                    Powerup powerup;
                     switch (map.get(y).get(x)){
-                        case 1: GameWorld.addGameObject(wall = new Wall(this.wall1, x*64, y*64, 1));
+                        case 1: GameWorld.addGameObject(new Wall(this.wall1, x*64, y*64, 1));
                             break;
-                        case 2: GameWorld.addGameObject(wall = new Wall(this.wall2, x*64, y*64, 2));
+                        case 2: GameWorld.addGameObject(new Wall(this.wall2, x*64, y*64, 2));
                             break;
-                        case 3: GameWorld.addGameObject(powerup = new Powerup(this.powerup, x*64, y*64));
+                        case 3: GameWorld.addGameObject(new Powerup(this.healthUp, x*64, y*64, 1));
+                        break;
+                        case 4: GameWorld.addGameObject(new Powerup(this.shieldUp, x*64, y*64, 2));
+                        break;
+                        case 5: GameWorld.addGameObject(new Powerup(this.rangeUp, x*64, y*64, 3));
+
                             break;
                     }
                 }

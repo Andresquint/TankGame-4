@@ -17,7 +17,9 @@ public class GameWorld {
     private BufferedImage bulletImg;
     private BufferedImage wall1;
     private BufferedImage wall2;
-    private BufferedImage powerup;
+    private BufferedImage healthUp;
+    private BufferedImage shieldUp;
+    private BufferedImage rangeUp;
     private TileManager tileManager;
     private Tank player1;
     private Tank player2;
@@ -39,7 +41,9 @@ public class GameWorld {
             bulletImg = read(new File("bullet.png"));
             wall1 = read(new File("wall1.png"));
             wall2 = read(new File("wall2.png"));
-            powerup = read(new File("powerUp.png"));
+            healthUp = read(new File("forwardHeart.png"));
+            shieldUp = read(new File("reverseHeart.png"));
+            rangeUp = read(new File("reverseTank.png"));
 
 
         } catch (IOException ex) {
@@ -53,7 +57,7 @@ public class GameWorld {
         this.addGameObject(player2);
 
 
-        tileManager = new TileManager(background, wall1, wall2, powerup);
+        tileManager = new TileManager(background, wall1, wall2, healthUp, shieldUp, rangeUp);
         tileManager.setUpMap("map.txt");
     }
 

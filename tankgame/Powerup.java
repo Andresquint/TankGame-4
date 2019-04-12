@@ -4,11 +4,15 @@ import java.awt.image.BufferedImage;
 
 public class Powerup extends GameObject{
 
-    private int type;
+    private int ID;
 
-    public Powerup(BufferedImage img, int x, int y, int type)   {
+    public Powerup(BufferedImage img, int x, int y, int ID)   {
         super(x, y, 0, img);
-        this.type = type;
+        this.ID = ID;
+    }
+
+    public int getID(){
+        return this.ID;
     }
 
     @Override

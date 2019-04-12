@@ -13,6 +13,7 @@ public class Player {
     private int shields;
     private int score;
     public final static int MAX_HEALTH = 325;
+    public final static int MAX_RANGE = 125;
 
 
     private BufferedImage tankImg;
@@ -45,19 +46,23 @@ public class Player {
     public Tank getTank(){
         return this.tank;
     }
-    public void setHealth(int damage) {
-        if (this.shields > 0) {
-            shields--;
+    public void setHealth(int amount){
+        if (amount <= MAX_HEALTH){
+            this.health = amount;
+            return;
+        } else if (amount <= 0){
+            this.health = MAX_HEALTH;
+            this.loseLife();
+            return;
         } else {
-            if ((this.health - damage) > 0 && !(this.health - damage > MAX_HEALTH)) {
-                this.health = this.health - damage;
-                System.out.println("Current Health: " + this.health);
-            } else if (this.health - damage > MAX_HEALTH) {
-                this.health = MAX_HEALTH;
-            } else {
-                this.health = MAX_HEALTH;
-                this.loseLife();
-            }
+            this.health = MAX_HEALTH;
+        }
+    }
+    public void checkDamage(int damage) {
+        if (this.shields > 0) {
+            this.setShields(this.shields - 1);
+        } else {
+            this.setHealth(this.health - damage);
         }
     }
     public int getHealth(){
@@ -78,16 +83,32 @@ public class Player {
     }
 
     public void setShields(int amount){
-        if (this.shields + amount > 4){
+        if (amount > 4){
             this.shields = 4;
+        } else if (amount < 0) {
+            this.shields = 0;
         } else {
-            this.shields += amount;
+            this.shields = amount;
         }
     }
 
     public int getShields(){
         return this.shields;
     }
+
+    public void setRange(int amount){
+        if (amount > MAX_RANGE){
+            this.getTank().setRange(MAX_RANGE);
+        }else{
+            this.getTank().setRange(amount);
+        }
+    }
+
+    public int getRange(){
+        return this.getTank().getRange();
+    }
+
+
 
 
 }

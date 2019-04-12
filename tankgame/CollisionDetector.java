@@ -21,7 +21,7 @@ public class CollisionDetector {
             bulletBox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
             if(tankTwoBox.intersects(bulletBox)){
                 b.setExists(false);
-                player2.setHealth(25);
+                player2.checkDamage(25);
             }
         }
         for (int i = 0; i < player2.getTank().bulletList.size(); i++){
@@ -29,7 +29,7 @@ public class CollisionDetector {
             bulletBox = new Rectangle(b.getX(), b.getY(), b.getImg().getWidth(), b.getImg().getHeight());
             if(tankOneBox.intersects(bulletBox)){
                 b.setExists(false);
-                player1.setHealth(25);
+                player1.checkDamage(25);
             }
         }
     }
@@ -148,13 +148,38 @@ public class CollisionDetector {
                 }
             }
             if (obj instanceof Powerup){
-                if (tankOneBox.intersects(objBox)){
-                    obj.setExists(false);
-                    player1.setHealth(-30);
-                }
-                if (tankTwoBox.intersects(objBox)){
-                    obj.setExists(false);
-                    player2.setHealth(-30);
+                switch (((Powerup) obj).getID()) {
+                    case 1:
+                    if (tankOneBox.intersects(objBox)) {
+                        obj.setExists(false);
+                        player1.setHealth(player1.getHealth() + 30);
+                    }
+                    if (tankTwoBox.intersects(objBox)) {
+                        obj.setExists(false);
+                        player2.setHealth(player2.getHealth() + 30);
+                    }
+                    break;
+                    case 2:
+                        if (tankOneBox.intersects(objBox)) {
+                            obj.setExists(false);
+                            player1.setShields(player1.getShields() + 1);
+                        }
+                        if (tankTwoBox.intersects(objBox)) {
+                            obj.setExists(false);
+                            player2.setShields(player2.getShields() + 1);
+                        }
+                    break;
+                    case 3:
+                        if (tankOneBox.intersects(objBox)) {
+                            obj.setExists(false);
+                            player1.setRange(player1.getRange() + 25);
+                        }
+                        if (tankTwoBox.intersects(objBox)) {
+                            obj.setExists(false);
+                            player2.setRange(player2.getRange() + 25);
+                        }
+
+
                 }
             }
         }

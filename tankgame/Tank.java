@@ -163,6 +163,7 @@ public class Tank extends MovingObject{
     }
 
     public int getRange(){return this.range;}
+    public void setRange(int amount){this.range = amount;}
 
 
 }

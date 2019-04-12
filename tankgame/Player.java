@@ -10,9 +10,9 @@ public class Player {
 
     private int lives;
     private int health;
-    private int armor;
+    private int shields;
     private int score;
-    public final static int MAX_HEALTH = 275;
+    public final static int MAX_HEALTH = 325;
 
 
     private BufferedImage tankImg;
@@ -22,7 +22,7 @@ public class Player {
     public Player(Tank tank){
         this.lives = 3;
         this.health = MAX_HEALTH;
-        this.armor = 0;
+        this.shields = 4;
         this.score = 0;
 
         try {
@@ -45,16 +45,19 @@ public class Player {
     public Tank getTank(){
         return this.tank;
     }
-    public void setHealth(int damage){
-        if ((this.health - damage) > 0 && !(this.health - damage > MAX_HEALTH )) {
-            this.health = this.health - damage;
-            System.out.println("Current Health: " + this.health);
-        }
-        else if (this.health - damage > MAX_HEALTH ) {
-            this.health = MAX_HEALTH;
-        }else{
-            this.health = 275;
-            this.loseLife();
+    public void setHealth(int damage) {
+        if (this.shields > 0) {
+            shields--;
+        } else {
+            if ((this.health - damage) > 0 && !(this.health - damage > MAX_HEALTH)) {
+                this.health = this.health - damage;
+                System.out.println("Current Health: " + this.health);
+            } else if (this.health - damage > MAX_HEALTH) {
+                this.health = MAX_HEALTH;
+            } else {
+                this.health = MAX_HEALTH;
+                this.loseLife();
+            }
         }
     }
     public int getHealth(){
@@ -73,5 +76,18 @@ public class Player {
             this.getTank().setExists(false);
         }
     }
+
+    public void setShields(int amount){
+        if (this.shields + amount > 4){
+            this.shields = 4;
+        } else {
+            this.shields += amount;
+        }
+    }
+
+    public int getShields(){
+        return this.shields;
+    }
+
 
 }

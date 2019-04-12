@@ -6,11 +6,15 @@ import java.awt.image.BufferedImage;
 
 public class Bullet extends MovingObject {
 
-    private BufferedImage img;
+    private int initialFrame;
+    private int range;
 
-    public Bullet(BufferedImage img, int x, int y, int angle ){
+    public Bullet(BufferedImage img, int x, int y, int angle, int range){
         super(img, x, y, angle);
+        this.range = range;
         this.speed = 8;
+        this.initialFrame = TRE.framecount;
+
     }
 @Override
     public void checkBorder() {
@@ -29,6 +33,15 @@ public class Bullet extends MovingObject {
         if (this.getY() >= TRE.WORLD_HEIGHT - 80) {
             this.setY(TRE.WORLD_HEIGHT - 80);
             this.exists = false;
+        }
+    }
+
+    @Override
+
+    public void moveForwards(){
+        super.moveForwards();
+        if (TRE.framecount - initialFrame == range){
+            this.setExists(false);
         }
     }
 

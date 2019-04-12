@@ -27,6 +27,8 @@ public class Tank extends MovingObject{
     private boolean LeftPressed;
     private boolean ShootPressed;
 
+    private int range = 50;
+
     public ArrayList<Bullet> bulletList;
 
 
@@ -115,7 +117,7 @@ public class Tank extends MovingObject{
         }
 
     private void shoot(){
-        Bullet pBullet = new Bullet(bulletImg, this.getX()+30, this.getY()+15, this.getAngle());
+        Bullet pBullet = new Bullet(bulletImg, this.getX()+30, this.getY()+15, this.getAngle(), this.range);
         this.bulletList.add(pBullet);
         System.out.println("Fire!");
 
@@ -159,6 +161,8 @@ public class Tank extends MovingObject{
             }
         }
     }
+
+    public int getRange(){return this.range;}
 
 
 }

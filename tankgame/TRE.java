@@ -12,25 +12,23 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import java.util.Objects;
-
 import static javax.imageio.ImageIO.read;
 import java.io.File;
 /**
  *
  * @author anthony-pc
  */
-public class TRE extends JPanel  {
+public class TRE<frameCount> extends JPanel  {
 
 
-    public static final int SCREEN_WIDTH = 1000;
+    public static final int SCREEN_WIDTH = 1200;
     public static final int SCREEN_HEIGHT = 450;
     public static final int WORLD_WIDTH = 1600;
     public static final int WORLD_HEIGHT = 1600;
 
     private GameWorld gameWorld;
-    private Player player1;
-    private Player player2;
+    public Player player1;
+    public Player player2;
 
     private BufferedImage forwardHeart;
     private BufferedImage reverseHeart;
@@ -44,8 +42,11 @@ public class TRE extends JPanel  {
     private BufferedImage background;
     private Camera cam1;
     private Camera cam2;
+    public boolean GameOver = false;
 
     private CollisionDetector CD;
+
+    public static int framecount = 0;
 
 
 
@@ -56,14 +57,18 @@ public class TRE extends JPanel  {
         trex.init();
         try {
 
-            while (true) {
+            while (!(trex.GameOver)) {
                 trex.player1.getTank().update();
                 trex.player2.getTank().update();
                 trex.CD.playerVsbullet();
                 trex.CD.bulletVswall();
                 trex.CD.playerVsobject();
                 trex.repaint();
+                framecount++;
                 Thread.sleep(1000 / 144);
+                if(trex.player1.getLives() == 0 || trex.player2.getLives() == 0){
+                    trex.GameOver = true;
+                }
             }
         } catch (InterruptedException ignored) {
 
@@ -142,11 +147,7 @@ public class TRE extends JPanel  {
         g2.drawImage((world.getSubimage(0, 0, WORLD_WIDTH, WORLD_HEIGHT)), SCREEN_WIDTH/2-SCREEN_WIDTH/8, SCREEN_HEIGHT + 1, SCREEN_WIDTH/4, 245, null);
         g2.drawImage(gameWorld.getTankImg(), SCREEN_WIDTH/32 - 15, 33*SCREEN_HEIGHT/32, null);
         g2.drawImage(reverseTank, SCREEN_WIDTH - 75, 33*SCREEN_HEIGHT/32, null);
-        g2.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g2.drawRect(SCREEN_WIDTH/30 + 50, 33*SCREEN_HEIGHT/32, Player.MAX_HEALTH, 50);
-        g2.fillRect(SCREEN_WIDTH/30 + 50, 33*SCREEN_HEIGHT/32, player1.getHealth(), 50);
-        g2.drawRect(SCREEN_WIDTH - 360, 33*SCREEN_HEIGHT/32, Player.MAX_HEALTH, 50);
-        g2.fillRect(SCREEN_WIDTH - 360 + Player.MAX_HEALTH - player2.getHealth(), 33*SCREEN_HEIGHT/32, player2.getHealth(), 50);
+
 
         for (int i = 0; i < player1.getLives(); i++){
         g2.drawImage(forwardHeart, SCREEN_WIDTH/32 - 17, 33*SCREEN_HEIGHT/32 + 55*(1 + i), null);
@@ -154,9 +155,39 @@ public class TRE extends JPanel  {
         for (int i = 0; i < player2.getLives(); i++){
             g2.drawImage(reverseHeart, SCREEN_WIDTH - 68, 33*SCREEN_HEIGHT/32 + 55*(1 + i), null);
         }
-        //g2.drawString(("Health: " + this.player1.getHealth()), SCREEN_WIDTH/30 + 55, 34*SCREEN_HEIGHT/32 + 20);
-        //g2.drawString(("Health: " + this.player2.getHealth()), 2*SCREEN_WIDTH/3 + 50, 34*SCREEN_HEIGHT/32 + 20);
+        g2.setFont(new Font("TimesRoman", Font.PLAIN, 35));
+        g2.drawString(("Shields: "), SCREEN_WIDTH/30 + 47, 34*SCREEN_HEIGHT/32 + 75);
+        g2.drawOval(SCREEN_WIDTH/30 + 180, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH/30 + 230, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH/30 + 280, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH/30 + 330, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH - 410, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH - 360, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH - 310, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        g2.drawOval(SCREEN_WIDTH - 260, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+        for (int i = 0; i < player1.getShields(); i++){
 
+            g2.fillOval(SCREEN_WIDTH/30 + 180 + 50*i, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+
+        }
+        for (int i = 0; i < player2.getShields(); i++){
+
+            g2.fillOval(SCREEN_WIDTH - 410 + 50 * i, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
+
+        }
+        g2.drawString((":Shields "), 2*SCREEN_WIDTH/3 + 192, 34*SCREEN_HEIGHT/32 + 75);
+
+        if (player1.getLives() == 0 || player2.getLives() == 0){
+            g2.setFont(new Font("TimesRoman", Font.PLAIN, 350));
+            g2.drawString("GAME", 75, 350);
+            g2.drawString("OVER", 90, 620);
+            return;
+        } else {
+            g2.drawRect(SCREEN_WIDTH / 30 + 50, 33 * SCREEN_HEIGHT / 32, Player.MAX_HEALTH, 50);
+            g2.fillRect(SCREEN_WIDTH / 30 + 50, 33 * SCREEN_HEIGHT / 32, player1.getHealth(), 50);
+            g2.drawRect(SCREEN_WIDTH - 415, 33 * SCREEN_HEIGHT / 32, Player.MAX_HEALTH, 50);
+            g2.fillRect(SCREEN_WIDTH - 415 + Player.MAX_HEALTH - player2.getHealth(), 33 * SCREEN_HEIGHT / 32, player2.getHealth(), 50);
+        }
 
 
     }

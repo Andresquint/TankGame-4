@@ -155,7 +155,9 @@ public class TRE<frameCount> extends JPanel  {
         for (int i = 0; i < player2.getLives(); i++){
             g2.drawImage(reverseHeart, SCREEN_WIDTH - 68, 33*SCREEN_HEIGHT/32 + 55*(1 + i), null);
         }
+
         g2.setFont(new Font("TimesRoman", Font.PLAIN, 35));
+        g2.setColor(Color.BLUE);
         g2.drawString(("Shields: "), SCREEN_WIDTH/30 + 47, 34*SCREEN_HEIGHT/32 + 75);
         g2.drawOval(SCREEN_WIDTH/30 + 180, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
         g2.drawOval(SCREEN_WIDTH/30 + 230, 34*SCREEN_HEIGHT/32 + 75 - 30, 40, 40);
@@ -176,6 +178,32 @@ public class TRE<frameCount> extends JPanel  {
 
         }
         g2.drawString((":Shields "), 2*SCREEN_WIDTH/3 + 192, 34*SCREEN_HEIGHT/32 + 75);
+
+        g2.setColor(Color.WHITE);
+
+        g2.drawString(("Range:"), SCREEN_WIDTH/30 +50, 34*SCREEN_HEIGHT/32 + 125 );
+        if (player1.getRange() == 50) {
+            g2.setColor(Color.RED);
+        } else if (player1.getRange() > 50 && player1.getRange() < Player.MAX_RANGE){
+            g2.setColor(Color.YELLOW);
+        }else{
+            g2.setColor(Color.GREEN);
+        }
+        g2.drawLine(SCREEN_WIDTH/30 + 178, 34*SCREEN_HEIGHT/32 + 115, SCREEN_WIDTH/30 + 178 + player1.getRange()*2,34*SCREEN_HEIGHT/32 + 115 );
+
+        g2.setColor(Color.WHITE);
+
+        g2.drawString((":Range"), 2*SCREEN_WIDTH/3 + 192, 34*SCREEN_HEIGHT/32 + 125 );
+        if (player2.getRange() == 50) {
+            g2.setColor(Color.RED);
+        } else if (player2.getRange() > 50 && player2.getRange() < Player.MAX_RANGE){
+            g2.setColor(Color.YELLOW);
+        }else{
+            g2.setColor(Color.GREEN);
+        }
+        g2.drawLine(2*SCREEN_WIDTH/3 + 180, 34*SCREEN_HEIGHT/32 + 115, 2*SCREEN_WIDTH/3 + 180 - player2.getRange()*2,34*SCREEN_HEIGHT/32 + 115 );
+
+        g2.setColor(Color.GREEN);
 
         if (player1.getLives() == 0 || player2.getLives() == 0){
             g2.setFont(new Font("TimesRoman", Font.PLAIN, 350));

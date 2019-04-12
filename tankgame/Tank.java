@@ -28,6 +28,8 @@ public class Tank extends MovingObject{
     private boolean ShootPressed;
 
     private int range = 50;
+    private int heat = 0;
+    private boolean overHeated = false;
 
     public ArrayList<Bullet> bulletList;
 
@@ -113,14 +115,31 @@ public class Tank extends MovingObject{
         for (int i = 0; i < this.bulletList.size(); i ++){
                 this.bulletList.get(i).update();
             }
+        if (this.heat - 1 < 0){
+            this.heat = 0;
+        }else {
+            this.heat -= 1;
+        }
+        if (this.heat == 0){
+            this.overHeated = false;
+        }
 
         }
 
-    private void shoot(){
-        Bullet pBullet = new Bullet(bulletImg, this.getX()+30, this.getY()+15, this.getAngle(), this.range);
-        this.bulletList.add(pBullet);
-        System.out.println("Fire!");
+    private void shoot() {
+        if (this.heat == Player.MAX_HEAT) {
+            this.overHeated = true;
+        } else {
+            Bullet pBullet = new Bullet(bulletImg, this.getX() + 30, this.getY() + 15, this.getAngle(), this.range);
+            this.bulletList.add(pBullet);
+            System.out.println("Fire!");
+            if (this.heat + 10 >= Player.MAX_HEAT) {
+                this.heat = Player.MAX_HEAT;
+            } else {
+                this.heat += 10;
+            }
 
+        }
     }
 
     @Override
@@ -164,6 +183,10 @@ public class Tank extends MovingObject{
 
     public int getRange(){return this.range;}
     public void setRange(int amount){this.range = amount;}
+    public int getHeat(){return this.heat;}
+    public boolean getHeated(){return this.overHeated;}
+
+
 
 
 }

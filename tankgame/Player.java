@@ -13,7 +13,8 @@ public class Player {
     private int shields;
     private int score;
     public final static int MAX_HEALTH = 325;
-    public final static int MAX_RANGE = 125;
+    public final static int MAX_RANGE = 100;
+    public final static int MAX_HEAT = 100;
 
 
     private BufferedImage tankImg;
@@ -23,7 +24,7 @@ public class Player {
     public Player(Tank tank){
         this.lives = 3;
         this.health = MAX_HEALTH;
-        this.shields = 4;
+        this.shields = 0;
         this.score = 0;
 
         try {
@@ -47,7 +48,7 @@ public class Player {
         return this.tank;
     }
     public void setHealth(int amount){
-        if (amount <= MAX_HEALTH){
+        if (amount <= MAX_HEALTH && amount > 0){
             this.health = amount;
             return;
         } else if (amount <= 0){

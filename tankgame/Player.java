@@ -14,7 +14,7 @@ public class Player {
     private int score;
     public final static int MAX_HEALTH = 325;
     public final static int MAX_RANGE = 100;
-    public final static int MAX_HEAT = 100;
+    public final static int MAX_HEAT = 1000;
 
 
     private BufferedImage tankImg;

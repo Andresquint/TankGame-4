@@ -181,29 +181,68 @@ public class TRE<frameCount> extends JPanel  {
 
         g2.setColor(Color.WHITE);
 
-        g2.drawString(("Range:"), SCREEN_WIDTH/30 +50, 34*SCREEN_HEIGHT/32 + 125 );
+        g2.drawString(("Range:"), SCREEN_WIDTH/30 +46, 34*SCREEN_HEIGHT/32 + 125 );
         if (player1.getRange() == 50) {
-            g2.setColor(Color.RED);
+            g2.setColor(Color.GRAY);
         } else if (player1.getRange() > 50 && player1.getRange() < Player.MAX_RANGE){
             g2.setColor(Color.YELLOW);
         }else{
             g2.setColor(Color.GREEN);
         }
-        g2.drawLine(SCREEN_WIDTH/30 + 178, 34*SCREEN_HEIGHT/32 + 115, SCREEN_WIDTH/30 + 178 + player1.getRange()*2,34*SCREEN_HEIGHT/32 + 115 );
+        //g2.drawLine(SCREEN_WIDTH/30 + 178, 34*SCREEN_HEIGHT/32 + 115, SCREEN_WIDTH/30 + 178 + player1.getRange()*2,34*SCREEN_HEIGHT/32 + 115 );
+        g2.drawRect(SCREEN_WIDTH/30 + 182, 34*SCREEN_HEIGHT/32 + 107, 3*player1.MAX_RANGE / 2 + 37,25 );
+        g2.fillRect(SCREEN_WIDTH/30 + 182, 34*SCREEN_HEIGHT/32 + 107, 3*player1.getTank().getRange()/2 + 37,25 );
 
         g2.setColor(Color.WHITE);
 
-        g2.drawString((":Range"), 2*SCREEN_WIDTH/3 + 192, 34*SCREEN_HEIGHT/32 + 125 );
+        g2.drawString((":Range"), 2*SCREEN_WIDTH/3 + 205, 34*SCREEN_HEIGHT/32 + 125 );
         if (player2.getRange() == 50) {
-            g2.setColor(Color.RED);
+            g2.setColor(Color.GRAY);
         } else if (player2.getRange() > 50 && player2.getRange() < Player.MAX_RANGE){
             g2.setColor(Color.YELLOW);
         }else{
             g2.setColor(Color.GREEN);
         }
-        g2.drawLine(2*SCREEN_WIDTH/3 + 180, 34*SCREEN_HEIGHT/32 + 115, 2*SCREEN_WIDTH/3 + 180 - player2.getRange()*2,34*SCREEN_HEIGHT/32 + 115 );
+        //g2.drawLine(2*SCREEN_WIDTH/3 + 185, 34*SCREEN_HEIGHT/32 + 115, 2*SCREEN_WIDTH/3 + 180 - player2.getRange()*2,34*SCREEN_HEIGHT/32 + 115 );
+        g2.drawRect(2*SCREEN_WIDTH/3 - 8, 34*SCREEN_HEIGHT/32 + 105, 3*player2.MAX_RANGE / 2 + 38,25 );
+        g2.fillRect(2*SCREEN_WIDTH/3 + 3*player2.MAX_RANGE/2 - 3*player2.getRange()/2 - 8, 34*SCREEN_HEIGHT/32 + 105, 3*player2.getTank().getRange()/2 + 38,25 );
+        g2.setColor(Color.RED);
+
+        g2.drawString(("Heat:"), SCREEN_WIDTH/30 + 52, 34*SCREEN_HEIGHT/32 + 175 );
+
+        if (player1.getTank().getHeat() >= 0 && player1.getTank().getHeat() < 250){
+            g2.setColor(Color.WHITE);
+        }else if(player1.getTank().getHeat() >= 25 && player1.getTank().getHeat() < 500){
+            g2.setColor(Color.YELLOW);
+        }else if(player1.getTank().getHeat() >= 50 && player1.getTank().getHeat() < 750){
+            g2.setColor(new Color(255, 102, 0));
+        }
+
+        //g2.drawLine(SCREEN_WIDTH/30 + 178, 34*SCREEN_HEIGHT/32 + 165, SCREEN_WIDTH/30 + 178 + player1.getTank().getHeat()/5,34*SCREEN_HEIGHT/32 + 165 );
+
+        g2.drawRect(SCREEN_WIDTH/30 + 179, 34*SCREEN_HEIGHT/32 + 155, player1.MAX_HEAT/5 - 10,25 );
+        g2.fillRect(SCREEN_WIDTH/30 + 179, 34*SCREEN_HEIGHT/32 + 155, player1.getTank().getHeat()/5 - 10,25 );
+
+        g2.setColor(Color.RED);
+
+        g2.drawString((":Heat"), SCREEN_WIDTH - 175, 34*SCREEN_HEIGHT/32 + 175 );
+
+        if (player2.getTank().getHeat() >= 0 && player2.getTank().getHeat() < 250){
+            g2.setColor(Color.WHITE);
+        }else if(player2.getTank().getHeat() >= 25 && player2.getTank().getHeat() < 500){
+            g2.setColor(Color.YELLOW);
+        }else if(player2.getTank().getHeat() >= 50 && player2.getTank().getHeat() < 750){
+            g2.setColor(new Color(255, 102, 0));
+        }
+
+        //g2.drawLine(SCREEN_WIDTH/30 + 178, 34*SCREEN_HEIGHT/32 + 165, SCREEN_WIDTH/30 + 178 + player1.getTank().getHeat()/5,34*SCREEN_HEIGHT/32 + 165 );
+
+        g2.drawRect(SCREEN_WIDTH/2 + 190, 34*SCREEN_HEIGHT/32 + 155, player2.MAX_HEAT/5 - 10,25 );
+        g2.fillRect(SCREEN_WIDTH/2 + 190 + Player.MAX_HEAT/5 - player2.getTank().getHeat()/5, 34*SCREEN_HEIGHT/32 + 155, player2.getTank().getHeat()/5 - 10,25 );
 
         g2.setColor(Color.GREEN);
+
+
 
         if (player1.getLives() == 0 || player2.getLives() == 0){
             g2.setFont(new Font("TimesRoman", Font.PLAIN, 350));

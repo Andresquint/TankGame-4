@@ -2,6 +2,7 @@ package tankgame;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class CollisionDetector {
 
@@ -97,18 +98,6 @@ public class CollisionDetector {
                 player1.getTank().setY(player1.getTank().getY() + 1);
                 player2.getTank().setY(player2.getTank().getY() - 1);
             }
-            if(player1.getTank().getUpPressed()){
-                player1.getTank().toggleUpPressed();
-            }
-            if(player1.getTank().getDownPressed()){
-                player1.getTank().toggleDownPressed();
-            }
-            if(player2.getTank().getUpPressed()){
-                player2.getTank().toggleUpPressed();
-            }
-            if(player2.getTank().getDownPressed()){
-                player2.getTank().toggleDownPressed();
-            }
         }
 
         for (int i = 0; i < GameWorld.getWorldList().size(); i++) {
@@ -178,6 +167,17 @@ public class CollisionDetector {
                             obj.setExists(false);
                             player2.setRange(player2.getRange() + 25);
                         }
+                    break;
+                    case 4:
+                        if (tankOneBox.intersects(objBox)) {
+                            obj.setExists(false);
+                            player1.getTank().setHeat(player1.getTank().getHeat() - 500);
+                        }
+                        if (tankTwoBox.intersects(objBox)) {
+                            obj.setExists(false);
+                            player2.getTank().setHeat(player2.getTank().getHeat() - 500);
+                        }
+
 
 
                 }

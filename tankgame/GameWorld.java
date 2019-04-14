@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static javax.imageio.ImageIO.read;
 
@@ -71,7 +72,13 @@ public class GameWorld {
             if(worldList.get(i).exists){
                 worldList.get(i).drawImage(buffer);
             }else{
+                Random rand = new Random();
+                int chance = rand.nextInt(20) + 1;
+                if (chance >= 1 && chance <= 4 && worldList.get(i) instanceof Wall){
+                    worldList.add(new Powerup(this.getRandPowerUp(chance), worldList.get(i).getX(), worldList.get(i).getY(), chance ));
+                }
                 worldList.remove(i);
+
             }
         }
     }
@@ -93,5 +100,15 @@ public class GameWorld {
     }
 
     public static ArrayList<GameObject> getWorldList(){return worldList;}
+
+    public BufferedImage getRandPowerUp(int value){
+        switch (value){
+            case 1: return healthUp;
+            case 2: return shieldUp;
+            case 3: return rangeUp;
+            case 4: return heatUp;
+            default: return null;
+        }
+    }
 
 }

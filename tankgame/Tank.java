@@ -29,7 +29,7 @@ public class Tank extends MovingObject{
 
     private int range = 50;
     private int heat = 0;
-    private boolean overHeated = false;
+    private boolean overHeated;
 
     public ArrayList<Bullet> bulletList;
 
@@ -95,6 +95,7 @@ public class Tank extends MovingObject{
 
 @Override
     public void update() {
+        this.checkHeat();
         if (this.UpPressed) {
             this.moveForwards();
         }
@@ -108,39 +109,36 @@ public class Tank extends MovingObject{
         if (this.RightPressed) {
             this.rotateRight();
         }
-        if(this.ShootPressed) {
-            this.shoot();
-            this.unToggleShootPressed();
+        if (this.ShootPressed) {
+            if (!(this.overHeated)){
+                this.shoot();
+            }
+                this.unToggleShootPressed();
+
         }
+
         for (int i = 0; i < this.bulletList.size(); i ++){
                 this.bulletList.get(i).update();
             }
-        if (this.heat - 1 < 0){
+        this.heat = this.heat - 1;
+        if (this.heat < 0){
             this.heat = 0;
-        }else {
-            this.heat -= 1;
         }
-        if (this.heat == 0){
-            this.overHeated = false;
-        }
-
         }
 
     private void shoot() {
-        if (this.heat == Player.MAX_HEAT) {
-            this.overHeated = true;
-        } else {
+        if (!(this.overHeated)) {
             Bullet pBullet = new Bullet(bulletImg, this.getX() + 30, this.getY() + 15, this.getAngle(), this.range);
             this.bulletList.add(pBullet);
             System.out.println("Fire!");
-            if (this.heat + 10 >= Player.MAX_HEAT) {
+            if (this.heat + 100 >= Player.MAX_HEAT) {
                 this.heat = Player.MAX_HEAT;
             } else {
-                this.heat += 10;
+                this.heat += 100;
             }
-
         }
     }
+
 
     @Override
 
@@ -185,6 +183,23 @@ public class Tank extends MovingObject{
     public void setRange(int amount){this.range = amount;}
     public int getHeat(){return this.heat;}
     public boolean getHeated(){return this.overHeated;}
+    public void checkHeat(){
+        if (this.heat == Player.MAX_HEAT-1){
+            this.overHeated = true;
+            System.out.println("OVERHEATED");
+        }
+        if(this.heat == 0){
+            this.overHeated = false;
+            System.out.println("FINE");
+        }
+    }
+
+    public void setHeat(int amount){
+        this.heat  = amount;
+        if (this.heat < 0){
+            this.heat = 0;
+        }
+    }
 
 
 
